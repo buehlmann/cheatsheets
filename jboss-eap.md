@@ -1,11 +1,37 @@
 # JBoss EAP 6.4 Cheatsheet and link collection
 
-## Using a different version of the JSF implementation
-https://access.redhat.com/node/195203
-https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Migration_Guide/sect-Changes_Dependent_on_Your_Application_Architecture_and_Components.html#sect-JSF_changes
+**Using a different version of the JSF implementation**
+Using Mojarra 2.1.19 instead of 2.1.28 on EAP 6.4.5
+1. Install the API and implementation of the needed JSF version: `[standalone@localhost:9999 /] deploy /tmp/mojarra-2.1.19.cli`
+2. Verify the installation installation:
+..* `$JBOSS_HOME/modules/com/sun/jsf-impl/mojarra-2.1.19: module.xml, jsf-impl-2.1.19-redhat-1.jar`
+..* `$JBOSS_HOME/modules/javax/faces/api/mojarra-2.1.19: module.xml, jboss-jsf-api_2.1_spec-2.1.19.1.Final-redhat-1.jar`
+..* `$JBOSS_HOME/modules/org/jboss/as/jsf-injection/mojarra-2.1.19: module.xml`
+3. Reboot the JBoss Application Server
+4. Optional: Change the default JSF Implementation to the new installed version: `[standalone@localhost:9999 /] /subsystem=jsf/:write-attribute(name=default-jsf-impl-slot,value=mojarra-2.1.19)`
+5. Lets reference weld to the new installed version of JSF: Define in the dependencies to the JSF API the previous installed slot by adding `slot="mojarra-2.1.19"` to `<module name="javax.faces.api"/>` in the following module.xml files of weld:
+..* `$JBOSS_HOME/modules/system/layers/base/org/jboss/as/weld/main/module.xml`
+..* `$JBOSS_HOME/modules/system/layers/base/org/jboss/weld/core/main/module.xml`
+..* `$JBOSS_HOME/modules/system/layers/base/.overlays/layer-base-jboss-eap-6.4.5.CP/org/jboss/weld/core/main/module.xml` (only used if the as is patched)
+..* `$JBOSS_HOME/modules/system/layers/base/.overlays/layer-base-jboss-eap-6.4.5.CP/org/jboss/as/weld/main/module.xml` (only used if the as is patched)
+6. Configure the webapplications to reference the installed Mojarra version in web.xml:
+```xml
+<context-param>
+  <param-name>org.jboss.jbossfaces.JSF_CONFIG_NAME</param-name>
+  <param-value>mojarra-2.1.19</param-value>
+</context-param>
+```
+_Restrictions_
+* It's not possible to deploy multiple webapps to the same JBoss instance with different JSF implementation versions
+* The module.xml files of weld have to be updated manually in the .overlays directory after patching the applicationserver
 
-## Provided Component Versions in JBoss EAP 6.x
+_References_
+* https://access.redhat.com/solutions/793963
+* https://access.redhat.com/solutions/637783
+* https://developer.jboss.org/wiki/DesignOfAS7Multi-JSFFeature
+
+**Provided Component Versions in JBoss EAP 6.x**
 https://access.redhat.com/articles/112673
 
-## Start the CLI with UI
-jboss-cli.sh --gui
+**Start the CLI with UI**
+`jboss-cli.sh --gui`
