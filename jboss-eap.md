@@ -2,18 +2,19 @@
 
 **Using a different version of the JSF implementation**
 Using Mojarra 2.1.19 instead of 2.1.28 on EAP 6.4.5
+
 1. Install the API and implementation of the needed JSF version: `[standalone@localhost:9999 /] deploy /tmp/mojarra-2.1.19.cli`
 2. Verify the installation installation:
-..* `$JBOSS_HOME/modules/com/sun/jsf-impl/mojarra-2.1.19: module.xml, jsf-impl-2.1.19-redhat-1.jar`
-..* `$JBOSS_HOME/modules/javax/faces/api/mojarra-2.1.19: module.xml, jboss-jsf-api_2.1_spec-2.1.19.1.Final-redhat-1.jar`
-..* `$JBOSS_HOME/modules/org/jboss/as/jsf-injection/mojarra-2.1.19: module.xml`
+* `$JBOSS_HOME/modules/com/sun/jsf-impl/mojarra-2.1.19: module.xml, jsf-impl-2.1.19-redhat-1.jar`
+* `$JBOSS_HOME/modules/javax/faces/api/mojarra-2.1.19: module.xml, jboss-jsf-api_2.1_spec-2.1.19.1.Final-redhat-1.jar`
+* `$JBOSS_HOME/modules/org/jboss/as/jsf-injection/mojarra-2.1.19: module.xml`
 3. Reboot the JBoss Application Server
 4. Optional: Change the default JSF Implementation to the new installed version: `[standalone@localhost:9999 /] /subsystem=jsf/:write-attribute(name=default-jsf-impl-slot,value=mojarra-2.1.19)`
 5. Lets reference weld to the new installed version of JSF: Define in the dependencies to the JSF API the previous installed slot by adding `slot="mojarra-2.1.19"` to `<module name="javax.faces.api"/>` in the following module.xml files of weld:
-..* `$JBOSS_HOME/modules/system/layers/base/org/jboss/as/weld/main/module.xml`
-..* `$JBOSS_HOME/modules/system/layers/base/org/jboss/weld/core/main/module.xml`
-..* `$JBOSS_HOME/modules/system/layers/base/.overlays/layer-base-jboss-eap-6.4.5.CP/org/jboss/weld/core/main/module.xml` (only used if the as is patched)
-..* `$JBOSS_HOME/modules/system/layers/base/.overlays/layer-base-jboss-eap-6.4.5.CP/org/jboss/as/weld/main/module.xml` (only used if the as is patched)
+* `$JBOSS_HOME/modules/system/layers/base/org/jboss/as/weld/main/module.xml`
+* `$JBOSS_HOME/modules/system/layers/base/org/jboss/weld/core/main/module.xml`
+* `$JBOSS_HOME/modules/system/layers/base/.overlays/layer-base-jboss-eap-6.4.5.CP/org/jboss/weld/core/main/module.xml` (only used if the as is patched)
+* `$JBOSS_HOME/modules/system/layers/base/.overlays/layer-base-jboss-eap-6.4.5.CP/org/jboss/as/weld/main/module.xml` (only used if the as is patched)
 6. Configure the webapplications to reference the installed Mojarra version in web.xml:
 ```xml
 <context-param>
