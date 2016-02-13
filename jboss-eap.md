@@ -1,6 +1,6 @@
 # JBoss EAP 6.4 Cheatsheet and link collection
 
-**Using a different version of the JSF implementation**  
+#### Using a different version of the JSF implementation
 Using Mojarra 2.1.19 instead of 2.1.28 on EAP 6.4.5
 
 1. Install the API and implementation of the needed JSF version: `[standalone@localhost:9999 /] deploy /tmp/mojarra-2.1.19.cli`
@@ -31,11 +31,57 @@ _References_
 * https://access.redhat.com/solutions/637783
 * https://developer.jboss.org/wiki/DesignOfAS7Multi-JSFFeature
 
-**Provided Component Versions in JBoss EAP 6.x**  
-https://access.redhat.com/articles/112673
+#### Using placeholders in Spec files like persistence.xml
+standalone.xml  
+```xml
+<spec-descriptor-property-replacement>true</spec-descriptor-property-replacement>
+```
+persistence.xml  
+```xml
+<property name="hibernate.search.default.indexBase" value="${lucene.indexBase}"/>
+````
 
-**Start the CLI with UI**  
+#### Example datasource configuration with background validation and new connection query
+```xml
+<subsystem xmlns="urn:jboss:domain:datasources:1.1">
+	<datasources>
+		<datasource jta="true" jndi-name="java:/jdbc/foo" pool-name="FooDS" enabled="true" use-ccm="false">
+			<connection-url></connection-url>
+			<driver>ojdbc6.jar</driver>
+			<new-connection-sql>alter session set CURRENT_SCHEMA = foo_schema</new-connection-sql>
+			<security>
+				<user-name>foo</user-name>
+				<password>bar</password>
+			</security>
+			<validation>
+				<check-valid-connection-sql>select * from dual</check-valid-connection-sql>
+				<background-validation>true</background-validation>
+				<background-validation-millis>10000</background-validation-millis>
+			</validation>
+			<statement>
+				<prepared-statement-cache-size>0</prepared-statement-cache-size>
+				<share-prepared-statements>false</share-prepared-statements>
+			</statement>
+		</datasource>
+		<drivers>
+			<driver name="ojdbc6.jar" module="com.oracle.ojdbc6"/>
+		</drivers>
+	</datasources>
+</subsystem>
+````
+
+#### Referencing a deployed JDBC driver in Datasource
+To be able to deploy a JDBC Driver the JAR must contains the file `META-INF/services/java.sql.Driver` with the fully qualified Driver class(es).
+
+```xml
+
+```
+
+#### Start the CLI with UI
 `jboss-cli.sh --gui`
 
-**JBoss EAP 6.x Management Model**  
+#### JBoss EAP 6.x Management Model
 http://wildscribe.github.io/JBoss%20EAP/6.4.0/subsystem/security/security-domain/authentication/classic/index.html
+
+#### Provided Component Versions in JBoss EAP 6.x
+https://access.redhat.com/articles/112673
