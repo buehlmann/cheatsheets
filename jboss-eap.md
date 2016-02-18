@@ -85,3 +85,6 @@ http://wildscribe.github.io/JBoss%20EAP/6.4.0/subsystem/security/security-domain
 
 #### Provided Component Versions in JBoss EAP 6.x
 https://access.redhat.com/articles/112673
+
+#### List of all included modules in EAP 6.x with their support levels
+https://access.redhat.com/articles/1122333
