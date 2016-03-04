@@ -89,6 +89,9 @@ To be able to deploy a JDBC Driver the JAR must contains the file `META-INF/serv
 </VirtualHost>
 ```
 
+#### Transaction Logs
+The TX-Logs are located by default under `$JBOSS_HOME/[domain|standalone]/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/`
+
 #### Start the CLI with UI
 `jboss-cli.sh --gui`
 
