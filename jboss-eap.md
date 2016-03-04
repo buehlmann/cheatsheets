@@ -77,6 +77,18 @@ To be able to deploy a JDBC Driver the JAR must contains the file `META-INF/serv
 
 ```
 
+#### Proxying the Management Console by mod_proxy
+```xml
+<VirtualHost *:80>
+    ServerName application1.foo.bar
+    ProxyPreserveHost On
+    ProxyPass "/console" "http://127.0.0.1:9990/console"
+    ProxyPassReverse "/console" "http://127.0.0.1:9990/console"
+    ProxyPass "/management" "http://127.0.0.1:9990/management"
+    ProxyPassReverse "/management" "http://127.0.0.1:9990/management"
+</VirtualHost>
+```
+
 #### Start the CLI with UI
 `jboss-cli.sh --gui`
 
