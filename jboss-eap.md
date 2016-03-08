@@ -116,14 +116,14 @@ jboss-web.xml
 </jboss-web>
 ```
 
-Generate password hash on console
-`echo -n "my-secret" | openssl dgst -sha256 -binary | openssl base64`
+Generate password hash on console  
+`echo -n "my-secret" | openssl dgst -sha256 -binary | openssl base64`  
 GG73bp1qcj7LVw1NnCh0h9AB5dNfftSjEzUKQHlQMY4=
 
-application1-users.properties
+application1-users.properties  
 `user=ZwCGnI/3SA40pwpwiwKHANuqOgM7VlK5A6/on0mjFFY=`
 
-application1-roles.properties
+application1-roles.properties  
 `user=PowerUser`
 
 #### Referencing a deployed JDBC driver in Datasource
