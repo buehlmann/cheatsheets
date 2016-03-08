@@ -103,3 +103,6 @@ https://access.redhat.com/articles/112673
 
 #### List of all included modules in EAP 6.x with their support levels
 https://access.redhat.com/articles/1122333
+
+#### List LoginModules in EAP 6
+https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Security_Guide/chap-Login_Modules.html
