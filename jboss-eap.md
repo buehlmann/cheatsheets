@@ -70,12 +70,64 @@ persistence.xml
 </subsystem>
 ````
 
+#### Securing Webapplication by simple, filebased Security Domain with hased passwords
+JBoss configuration
+```xml
+<security-domain name="domain-application-1" cache-type="default">
+    <authentication>
+        <login-module code="org.jboss.security.auth.spi.UsersRolesLoginModule" flag="required">
+            <module-option name="usersProperties" value="file:${jboss.server.config.dir}/application1-users.properties"/>
+            <module-option name="rolesProperties" value="file:${jboss.server.config.dir}/application1-roles.properties"/>
+            <module-option name="hashUserPassword" value="true"/>
+            <module-option name="hashAlgorithm" value="SHA-256"/>
+            <module-option name="hashEncoding" value="base64"/>
+        </login-module>
+    </authentication>
+</security-domain>
+```
+
+web.xml
+```xml
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>SuperUser Area</web-resource-name>
+      <url-pattern>/protected</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>SuperUser</role-name>
+    </auth-constraint>
+  </security-constraint>
+  
+  <security-role>
+    <role-name>SuperUser</role-name>
+  </security-role>
+  
+  <login-config>
+    <auth-method>BASIC</auth-method>
+  </login-config>
+```
+
+jboss-web.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+    <context-root>/counter</context-root>
+    <security-domain>domain-application-1</security-domain>
+</jboss-web>
+```
+
+Generate password hash on console
+`echo -n "my-secret" | openssl dgst -sha256 -binary | openssl base64`
+GG73bp1qcj7LVw1NnCh0h9AB5dNfftSjEzUKQHlQMY4=
+
+application1-users.properties
+`user=ZwCGnI/3SA40pwpwiwKHANuqOgM7VlK5A6/on0mjFFY=`
+
+application1-roles.properties
+`user=PowerUser`
+
 #### Referencing a deployed JDBC driver in Datasource
 To be able to deploy a JDBC Driver the JAR must contains the file `META-INF/services/java.sql.Driver` with the fully qualified Driver class(es).
-
-```xml
-
-```
 
 #### Proxying the Management Console by mod_proxy
 ```xml
