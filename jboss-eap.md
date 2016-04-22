@@ -160,7 +160,7 @@ https://access.redhat.com/articles/1122333
 https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Security_Guide/chap-Login_Modules.html
 
 #### How to inspect the Classpath of JBoss EAP 6
-Static Modules are exposed by MBean "jboss.modules:type=ModuleLoader,name=LocalModuleLoader-2	"
-Dynamic Modules (aka deployment artifacts) are exposed by MBean "jboss.modules:type=ModuleLoader,name=ServiceModuleLoader-3"
-Using JConsole to access the JMX Beans exposed by JBoss.
+Static Modules are exposed by MBean "jboss.modules:type=ModuleLoader,name=LocalModuleLoader-2" 
+Dynamic Modules (aka deployment artifacts) are exposed by MBean "jboss.modules:type=ModuleLoader,name=ServiceModuleLoader-3" 
+Using JConsole to access the JMX Beans exposed by JBoss. 
 https://access.redhat.com/solutions/209373
