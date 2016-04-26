@@ -165,6 +165,8 @@ Dynamic Modules (aka deployment artifacts) are exposed by MBean "jboss.modules:t
 Using JConsole to access the JMX Beans exposed by JBoss.  
 https://access.redhat.com/solutions/209373
 
+#### List of supported Environments for EAP 6
+https://access.redhat.com/articles/111663
 
 #### List of all implicit Dependencies in EAP 6
 https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-Reference1.html#Implicit_Module_Dependencies
