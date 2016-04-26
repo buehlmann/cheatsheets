@@ -127,7 +127,8 @@ application1-roles.properties
 `user=PowerUser`
 
 #### Referencing a deployed JDBC driver in Datasource
-To be able to deploy a JDBC Driver the JAR must contains the file `META-INF/services/java.sql.Driver` with the fully qualified Driver class(es).
+To be able to deploy a JDBC Driver the JAR must contains the file `META-INF/services/java.sql.Driver` with the fully qualified Driver class(es) (JDBC4 compliant driver).  
+The driver will be referenced by the name of the deployment: `<driver>postgresql-9.1.jar</driver>`
 
 #### Proxying the Management Console by mod_proxy
 ```xml
