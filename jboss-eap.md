@@ -142,6 +142,70 @@ The driver will be referenced by the name of the deployment: `<driver>postgresql
 </VirtualHost>
 ```
 
+#### How to use the password Vault feature
+The password Vault feature of JBoss lets you use encrypted strings in configuration files (e.g. passwords of the datasource).  
+
+1. Creating a Java Keystore which contains the encrypted passwords:
+`keytool -genkey -alias vault -keyalg RSA -keysize 2048 -keystore ~/vault.keystore`
+2. Using the `EAP_HOME/bin/vault.sh` script to open a connection to the generated keystore:
+```Please enter a Digit::   0: Start Interactive Session  1: Remove Interactive Session  2: Exit
+0
+Starting an interactive session
+Enter directory to store encrypted files:/home/bbuehlmann/              
+Enter Keystore URL:/home/bbuehlmann/vault.keystore
+Enter Keystore password: 
+Enter Keystore password again: 
+Values match
+Enter 8 character salt:11223344
+Enter iteration count as a number (Eg: 44):59
+Enter Keystore Alias:vault
+Initializing Vault
+Apr 27, 2016 1:38:04 PM org.picketbox.plugins.vault.PicketBoxSecurityVault init
+INFO: PBOX000361: Default Security Vault Implementation Initialized and Ready
+Vault Configuration in AS7 config file:
+********************************************
+...
+</extensions>
+<vault>
+  <vault-option name="KEYSTORE_URL" value="/home/bbuehlmann/vault.keystore"/>
+  <vault-option name="KEYSTORE_PASSWORD" value="MASK-2cXrUWYGuz9LVmDinhmTfZ"/>
+  <vault-option name="KEYSTORE_ALIAS" value="vault"/>
+  <vault-option name="SALT" value="11223344"/>
+  <vault-option name="ITERATION_COUNT" value="59"/>
+  <vault-option name="ENC_FILE_DIR" value="/home/bbuehlmann/"/>
+</vault><management> ...
+********************************************
+Vault is initialized and ready for use
+Handshake with Vault complete
+```
+3. Copying the generated snippet to the standalone.xml or on each host.xml in domain mode.
+4. Adding passwords to the vault
+```
+Please enter a Digit::   0: Store a secured attribute  1: Check whether a secured attribute exists  2: Exit
+0
+Task: Store a secured attribute
+Please enter secured attribute value (such as password): 
+Please enter secured attribute value (such as password) again: 
+Values match
+Enter Vault Block:DataSource 
+Enter Attribute Name:password
+Secured attribute value has been stored in vault. 
+Please make note of the following:
+********************************************
+Vault Block:DataSource
+Attribute Name:password
+Configuration should be done as follows:
+VAULT::DataSource::password::1
+********************************************
+```
+5. Using the encrypted password in the JBoss configuration:
+```
+<security>
+  <user-name>admin</user-name>
+  <password>${VAULT::DataSource::password::1}</password>
+</security>
+```
+
 #### Transaction Logs
 The TX-Logs are located by default under `$JBOSS_HOME/[domain|standalone]/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/`
 
