@@ -1,8 +1,5 @@
 # GIT cheatsheet
 
-### Staging area
-tbd
-
 ### Share a local Repository
 
 Define the origin
