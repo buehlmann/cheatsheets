@@ -148,7 +148,8 @@ The password Vault feature of JBoss lets you use encrypted strings in configurat
 1. Creating a Java Keystore which contains the encrypted passwords:
 `keytool -genkey -alias vault -keyalg RSA -keysize 2048 -keystore ~/vault.keystore`
 2. Using the `EAP_HOME/bin/vault.sh` script to open a connection to the generated keystore:
-```Please enter a Digit::   0: Start Interactive Session  1: Remove Interactive Session  2: Exit
+```
+Please enter a Digit::   0: Start Interactive Session  1: Remove Interactive Session  2: Exit
 0
 Starting an interactive session
 Enter directory to store encrypted files:/home/bbuehlmann/              
