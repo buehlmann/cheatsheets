@@ -211,7 +211,7 @@ VAULT::DataSource::password::1
 ```
 <periodic-rotating-file-handler name="BUSINESS_HANDLER" autoflush="true">
     <formatter>
-        <pattern-formatter pattern="%s"/>
+        <pattern-formatter pattern="%s%n"/>
     </formatter>
     <file relative-to="jboss.server.log.dir" path="business.log"/>
     <suffix value=".yyyy-MM-dd"/>
