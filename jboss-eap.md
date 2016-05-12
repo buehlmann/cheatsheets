@@ -207,6 +207,31 @@ VAULT::DataSource::password::1
 </security>
 ```
 
+#### Log to a separate file
+```
+<periodic-rotating-file-handler name="BUSINESS_HANDLER" autoflush="true">
+    <formatter>
+        <pattern-formatter pattern="%s"/>
+    </formatter>
+    <file relative-to="jboss.server.log.dir" path="business.log"/>
+    <suffix value=".yyyy-MM-dd"/>
+    <append value="true"/>
+</periodic-rotating-file-handler>
+<logger category="foo.bar.project.business" use-parent-handlers="false">
+    <level name="TRACE"/>
+    <handlers>
+        <handler name="BUSINESS_HANDLER"/>
+    </handlers>
+</logger>
+<root-logger>
+    <level name="INFO"/>
+    <handlers>
+        <handler name="CONSOLE"/>
+        <handler name="FILE"/>
+    </handlers>
+</root-logger>
+```
+
 #### Transaction Logs
 The TX-Logs are located by default under `$JBOSS_HOME/[domain|standalone]/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/`
 
