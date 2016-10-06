@@ -261,3 +261,6 @@ https://access.redhat.com/articles/111663
 
 #### List of all implicit Dependencies in EAP 6
 https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-Reference1.html#Implicit_Module_Dependencies
+
+#### JBoss Middleware Products Lifecycle
+https://access.redhat.com/support/policy/updates/jboss_notes
