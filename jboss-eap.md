@@ -1,4 +1,6 @@
-# JBoss EAP 6.4 Cheatsheet and link collection
+# Cheatsheet and link collection
+
+## JBoss EAP 6.4 
 
 #### Using a different version of the JSF implementation
 Using Mojarra 2.1.19 instead of 2.1.28 on EAP 6.4.5
@@ -264,3 +266,25 @@ https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platf
 
 #### JBoss Middleware Products Lifecycle
 https://access.redhat.com/support/policy/updates/jboss_notes
+
+
+## JBoss EAP 7.0  
+
+#### Enable Undertow HTTP requests logging
+```
+<subsystem xmlns="urn:jboss:domain:undertow:3.0">
+	...
+	<server name="default-server">
+		...
+		<host name="default-host" alias="localhost">
+			...
+			<filter-ref name="request-dumper"/>
+		</host>
+	</server>
+	...
+	<filters>
+		...
+		<filter name="request-dumper" module="io.undertow.core" class-name="io.undertow.server.handlers.RequestDumpingHandler"/>
+	</filters>
+</subsystem>
+```
