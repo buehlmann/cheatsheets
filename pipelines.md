@@ -24,3 +24,4 @@ pipeline {
   }
 }
 ```
+Choice parameters must be defined as a new-line separated String because of https://issues.jenkins-ci.org/browse/JENKINS-40358.
