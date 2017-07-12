@@ -288,3 +288,6 @@ https://access.redhat.com/support/policy/updates/jboss_notes
 	</filters>
 </subsystem>
 ```
+
+## Official EAP Docker Images
+https://access.redhat.com/containers/#/registry.access.redhat.com/jboss-eap-7/eap70-openshift
