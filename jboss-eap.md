@@ -290,5 +290,8 @@ https://access.redhat.com/support/policy/updates/jboss_notes
 #### List of supported Environments for EAP 7
 https://access.redhat.com/articles/2026253
 
+#### List of JBoss Modules for EAP 7 with their visibility and support levels
+https://access.redhat.com/articles/2158031
+
 ## Official EAP Docker Images
 https://access.redhat.com/containers/#/registry.access.redhat.com/jboss-eap-7/eap70-openshift
