@@ -1,0 +1,41 @@
+= Roundup about Distributed Systems
+
+== Replication
+
+Types of Replication
+
+* Synchronous: high consistency, high latency
+* Asynchronous: low consistency, low latency
+* Chain Replication
+
+
+Log Replication Strategies
+
+* Statement based
+** won't work for nondeterministic functions in statements
+* Write ahead log
+* Row based
+* Trigger-based
+
+
+Leader Election
+
+* Leader-based
+* Multi leader
+* Leaderless
+
+
+Replication Lag, consistencies
+
+* Read-after-write consistency: see your own writes immediately
+* Monotonic reads: ensures not going backward in time when reading from different replicas
+* Consistent prefix reads: an observer should see a sequence of write operation in the order they were executed
+
+
+== Distributed Consensus
+
+Algorithms
+* Paxos
+* ZAB (ZooKeeper Atomic Broadcast)
+* Raft
+* Chandra–Toueg
