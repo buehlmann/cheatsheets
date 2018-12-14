@@ -2,14 +2,14 @@
 
 == Replication
 
-Types of Replication
+=== Types of Replication
 
 * Synchronous: high consistency, high latency
 * Asynchronous: low consistency, low latency
 * Chain Replication
 
 
-Log Replication Strategies
+=== Log Replication Strategies
 
 * Statement based
 ** won't work for nondeterministic functions in statements
@@ -18,14 +18,14 @@ Log Replication Strategies
 * Trigger-based
 
 
-Leader Election
+=== Leader Election
 
 * Leader-based
 * Multi leader
 * Leaderless
 
 
-Replication Lag, consistencies
+=== Replication Lag, consistencies
 
 * Read-after-write consistency: see your own writes immediately
 * Monotonic reads: ensures not going backward in time when reading from different replicas
@@ -35,7 +35,8 @@ Replication Lag, consistencies
 == Distributed Consensus
 
 Algorithms
+
 * Paxos
 * ZAB (ZooKeeper Atomic Broadcast)
-* Raft
+* Raft: NATS.io Streaming
 * Chandra–Toueg
