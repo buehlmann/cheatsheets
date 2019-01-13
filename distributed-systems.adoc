@@ -18,19 +18,34 @@
 * Trigger-based
 
 
-=== Leader Election
-
-* Leader-based
-* Multi leader
-* Leaderless
-
-
 === Replication Lag, consistencies
 
 * Read-after-write consistency: see your own writes immediately
 * Monotonic reads: ensures not going backward in time when reading from different replicas
 * Consistent prefix reads: an observer should see a sequence of write operation in the order they were executed
 
+
+== Replicaiton Architectures 
+
+Single leader
+
+** Straightforward, no conflics
+** Every write go through single centralized leader may lead to high latencies
+** Examples: Kafka (per partition)
+
+Multi leader
+
+** Write conflicts must be handled
+** Good for geographically distribution, spreading cluster over multiple datacenter or for clients with long offline periods (leader will be a part of the clients)
+** Load balancing for writes
+** Low latencies for r+w operations of clients
+
+Leaderless
+
+** Read and write operations are Quorum based (majority of nodes must be available)
+** Clients writes data directly and parallel to a defined number (RF) of node in the cluster
+** Clients writes data from all the nodes the data was written to and compares the results. If the data of some nodes is outdated, the clients itself writes the newest state of the data to the node (read repair).
+** Examples: Cassandra, Voldemort
 
 == Distributed Consensus
 
