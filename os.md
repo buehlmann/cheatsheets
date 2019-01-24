@@ -20,3 +20,16 @@ oc describe clusterrole strimzi-admin
 ```
 oc project <bla>
 ```
+
+# Minishift
+
+Configure docker env
+```
+eval $(minishift docker-env)
+```
+
+Adds ClusterRole `cluster-admin` to admin
+```
+docker exec -it origin /bin/bash
+oc --config=/var/lib/origin/openshift.local.config/master/admin.kubeconfig adm policy --as system:admin add-cluster-role-to-user cluster-admin admin
+```
