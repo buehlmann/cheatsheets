@@ -29,23 +29,33 @@
 
 Single leader
 
-** Straightforward, no conflics
-** Every write go through single centralized leader may lead to high latencies
-** Examples: Kafka (per partition)
+* Straightforward, conflictless
+* Failover needed when leader goes down (reelection, client switches to new leder, followers follows the new leader)
+* Strong ordering guarantees possible
+* Leader may be bottleneck for writes
+* Every write go through single centralized leader may lead to high latencies
+* Examples of leaderless architectures: Kafka, RabbitMQ
 
 Multi leader
 
-** Write conflicts must be handled
-** Good for geographically distribution, spreading cluster over multiple datacenter or for clients with long offline periods (leader will be a part of the clients)
-** Load balancing for writes
-** Low latencies for r+w operations of clients
+* Write conflicts must be handled
+* Good for geographically distribution, spreading cluster over multiple datacenter or for clients with long offline periods (leader will be a part of the clients)
+* Load balanced write operations
+* Low latencies for r+w operations of clients
+* Great way for geographically distributed clusters with high latencies between locations. Leader per datacenter
+* Possible solution for clients (leaders) witch longer offline periods
+* Examples of Multi leader architectures: CouchDB, VoltDB
 
 Leaderless
 
-** Read and write operations are Quorum based (majority of nodes must be available)
-** Clients writes data directly and parallel to a defined number (RF) of node in the cluster
-** Clients writes data from all the nodes the data was written to and compares the results. If the data of some nodes is outdated, the clients itself writes the newest state of the data to the node (read repair).
-** Examples: Cassandra, Voldemort
+* No ordering guarantees
+* Failovers are not needed
+* Read and write operations are Quorum based (majority of nodes must be available)
+* Clients writes data directly and parallel to a defined number (RF) of nodes in the cluster or to a designated coordinator in the cluster (client- or server-side replication)
+* Catching up missed writes between brokers:
+** Read Repair: Clients reads data from all the nodes the data was written to and compares the results. If the data of some nodes is outdated, the clients itself writes the newest state of the data to the node. Works only well for values that are frequently read.
+** Anti entropy process: Serverside background job which synchronizes the data between the brokers.
+* Examples of leaderless architectures: Cassandra, Voldemort, Dynamo (https://en.wikipedia.org/wiki/Dynamo_(storage_system))
 
 == Distributed Consensus
 
@@ -53,5 +63,5 @@ Algorithms
 
 * Paxos
 * ZAB (ZooKeeper Atomic Broadcast)
-* Raft: NATS.io Streaming
+* Raft: NATS.io Streaming (https://raft.github.io)
 * Chandra–Toueg
