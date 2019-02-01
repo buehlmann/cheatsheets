@@ -65,3 +65,14 @@ Algorithms
 * ZAB (ZooKeeper Atomic Broadcast)
 * Raft: NATS.io Streaming (https://raft.github.io)
 * Chandra–Toueg
+
+
+== Partitioning
+
+* In DBs known as Sharding
+* Balance network i/o, disk i/o and data usage among multiple nodes in a distributed system
+* Goal is to distribute load evenly over nodes. Depends on the partitioning algorithm used.
+* Partitioning of key-value structured data
+** Hash of keys: Mostly even distribution between partitions
+** Key ranges: Distribution may be skewed, allows efficient key based range queries
+** Dynamic extended keys: Some "hot" keys may occur more than others. Keys will be extended by a random number. Must be handled client-side.
