@@ -38,3 +38,9 @@ oc new-app myproject
 oc expose svc/myproject
 oc get route myproject
 ```
+
+## Export
+
+```
+oc export svc,dc,is --selector app=cp-schema-registry --as-template=schema-registry
+```
