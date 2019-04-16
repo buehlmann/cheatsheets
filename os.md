@@ -32,7 +32,7 @@ oc --config=/var/lib/origin/openshift.local.config/master/admin.kubeconfig adm p
 ## Binary S2I
 
 ```
-oc new-build --name=myproject redhat-openjdk18-openshift --binary=true
+oc new-build --name=myproject registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift --binary=true
 oc start-build bc/myproject -F --from-file build/libs/app.jar
 oc new-app myproject
 oc expose svc/myproject
