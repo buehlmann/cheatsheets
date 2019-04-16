@@ -1,4 +1,4 @@
-# Cluster Management
+## Cluster Management
 
 Who has which permissions?
 ```
@@ -16,12 +16,7 @@ oc describe rolebinding admin
 oc describe clusterrole strimzi-admin
 ```
 
-# Project management
-```
-oc project <bla>
-```
-
-# Minishift
+## Minishift
 
 Configure docker env
 ```
@@ -32,4 +27,14 @@ Adds ClusterRole `cluster-admin` to admin
 ```
 docker exec -it origin /bin/bash
 oc --config=/var/lib/origin/openshift.local.config/master/admin.kubeconfig adm policy --as system:admin add-cluster-role-to-user cluster-admin admin
+```
+
+## Binary S2I
+
+```
+oc new-build --name=myproject redhat-openjdk18-openshift --binary=true
+oc start-build bc/myproject -F --from-file build/libs/app.jar
+oc new-app myproject
+oc expose svc/myproject
+oc get route myproject
 ```
