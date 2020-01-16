@@ -16,6 +16,17 @@ oc describe rolebinding admin
 oc describe clusterrole strimzi-admin
 ```
 
+Create new user, group and assign role to group
+```
+oc create user bill
+oc create identity anypassword:bill
+oc adm groups new secret-readers
+oc adm groups add-users secret-readers bill
+oc adm policy add-role-to-group my-role secret-readers
+oc create clusterrole secret-reader --verb get --resource=secret
+```
+
+
 ## Minishift
 
 Configure docker env
