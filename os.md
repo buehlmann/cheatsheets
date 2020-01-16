@@ -55,3 +55,20 @@ oc get route myproject
 ```
 oc export svc,dc,is --selector app=cp-schema-registry --as-template=schema-registry
 ```
+
+## Snippets
+
+Single file Mount
+```
+- mountPath: /tmp/src/log4j.properties
+  name: test-volume
+  subPath: log4j.properties
+...
+volumes:
+- configMap:
+    defaultMode: 420
+    name: kafka-kafka-config
+  name: test-volume
+
+```
+*Not working with Secrets!*
