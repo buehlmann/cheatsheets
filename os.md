@@ -13,7 +13,7 @@ oc get clusterrolebindings -o json | jq '.items[] | select(.metadata.name=="clus
 Get all permissions of a specific RoleBinding or ClusterRole
 ```
 oc describe rolebinding admin
-oc describe clusterrole strimzi-admin
+oc describe clusterrole admin
 ```
 
 Create new user, group and assign role to group
