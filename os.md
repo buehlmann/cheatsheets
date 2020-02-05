@@ -26,6 +26,12 @@ oc adm policy add-role-to-group my-role secret-readers
 oc create clusterrole secret-reader --verb get --resource=secret
 ```
 
+Create new ServiceAccount with assigned role
+```
+oc create role secret-reader --verb get --resource=secret
+oc create sa my-service-account
+oc adm policy add-role-to-user secret-reader system:serviceaccount:my-namespace:my-service-account
+```
 
 ## Minishift
 
