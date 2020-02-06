@@ -53,7 +53,9 @@ docker exec -it origin /bin/bash
 oc --config=/var/lib/origin/openshift.local.config/master/admin.kubeconfig adm policy --as system:admin add-cluster-role-to-user cluster-admin admin
 ```
 
-## Binary S2I
+## Snippets
+
+Binary S2I
 
 ```
 oc new-build --name=myproject registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift --binary=true
@@ -63,13 +65,11 @@ oc expose svc/myproject
 oc get route myproject
 ```
 
-## Export
+Create Template from 
 
 ```
 oc export svc,dc,is --selector app=cp-schema-registry --as-template=schema-registry
 ```
-
-## Snippets
 
 Single file Mount
 ```
