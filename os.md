@@ -35,6 +35,13 @@ oc adm policy add-role-to-user secret-reader system:serviceaccount:my-namespace:
 
 ## Minishift
 
+Enable RedHat registry login:
+
+```
+minishift addons enable redhat-registry-login
+minishift stop && minishift start
+```
+
 Configure docker env
 ```
 eval $(minishift docker-env)
