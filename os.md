@@ -35,11 +35,18 @@ oc adm policy add-role-to-user secret-reader system:serviceaccount:my-namespace:
 
 ## Minishift
 
-Enable RedHat registry login:
+Enable RedHat registry login (doesn't work):
 
 ```
 minishift addons enable redhat-registry-login
 minishift stop && minishift start
+```
+
+Manually pull an image in Minishift VM
+```
+minishift ssh
+docker login -u <user> https://registry.redhat.io
+docker pull registry.redhat.io/amq7/amq-streams-operator:1.3.0
 ```
 
 Configure docker env
