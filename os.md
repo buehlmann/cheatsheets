@@ -33,6 +33,12 @@ oc create sa my-service-account
 oc adm policy add-role-to-user secret-reader system:serviceaccount:my-namespace:my-service-account
 ```
 
+List all users & identities
+```
+oc get users
+oc get identities
+```
+
 ## Minishift
 
 Enable RedHat registry login (doesn't work):
