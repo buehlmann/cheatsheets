@@ -39,9 +39,24 @@ oc get users
 oc get identities
 ```
 
+Configure scheduled import to ImageStream from external repo. Default interval is 15min and can be changed by cluster wide setting `ScheduledImageImportMinimumIntervalSeconds`
+```
+oc tag --scheduled docker.io/python:3.6.0 python:3.6
+```
+
+Manually triggers ImageStream to poll upstream registry
+```
+oc import-image python:3.6
+```
+
+Tag current latest from ImageStream as stable
+```
+oc tag image:latest image:stable
+```
+
 ## Minishift
 
-Enable RedHat registry login (doesn't work):
+Enable RedHat registry login (minishift vm must be recreated):
 
 ```
 minishift addons enable redhat-registry-login
