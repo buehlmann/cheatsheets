@@ -113,3 +113,9 @@ volumes:
 
 ```
 *Not working with Secrets!*
+
+
+Process template locally with multiple param files
+```
+oc process --local -f wekan.yaml --ignore-unknown-parameters -o yaml --param-file wekan-test-precedence.env --param-file wekan-test.env
+```
