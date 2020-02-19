@@ -119,3 +119,9 @@ Process template locally with multiple param files
 ```
 oc process --local -f wekan.yaml --ignore-unknown-parameters -o yaml --param-file wekan-test-precedence.env --param-file wekan-test.env
 ```
+
+
+Wait for a condition
+```
+oc wait pod -l strimzi.io/cluster=dev-1 --for=condition=Ready --timeout=60s
+```
