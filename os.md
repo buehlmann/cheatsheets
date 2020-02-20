@@ -130,3 +130,28 @@ Wait for a condition
 ```
 oc wait pod -l strimzi.io/cluster=dev-1 --for=condition=Ready --timeout=60s
 ```
+
+Wait for Kafka to become ready
+```
+#!/bin/bash
+wait_for_kafka () {
+    KAFKA_NAME=$1
+    NAMESPACE=$2
+    TIMEOUT=$3
+    TIME_CONSUMED=0
+
+    while (( `oc get kafka $KAFKA_NAME -n $NAMESPACE -o jsonpath='{.metadata.generation}'` > $(oc get kafka $KAFKA_NAME -n $NAMESPACE -o jsonpath='{.status.observedGeneration}') )); do
+        if [ "$TIME_CONSUMED" -gt "$TIMEOUT" ]; then
+            echo "ERROR: Timeout of $TIMEOUT seconds waiting for $KAFKA_NAME exceeded..."
+            exit 1
+        fi
+        echo "Waiting for resources of the Kafka cluster '$KAFKA_NAME' in Namespace '$NAMESPACE' to become ready..."
+        TIME_CONSUMED=$((TIME_CONSUMED+1))
+        sleep 1
+    done    
+    oc wait kafka kafka --for=condition=Ready --timeout=60s
+    echo "Kafka cluster $KAFKA_NAME is reconciled and ready."
+}
+
+wait_for_kafka "kafka" "kafka-dev-1" 180
+```
