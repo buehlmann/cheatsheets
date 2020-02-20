@@ -54,6 +54,11 @@ Tag current latest from ImageStream as stable
 oc tag image:latest image:stable
 ```
 
+Link secret to to ServiceAccount
+```
+oc secrets link deployer secret-name --for=pull
+```
+
 ## Minishift
 
 Enable RedHat registry login (minishift vm must be recreated):
