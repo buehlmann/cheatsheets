@@ -155,3 +155,8 @@ wait_for_kafka () {
 
 wait_for_kafka "kafka" "kafka-dev-1" 180
 ```
+
+Delete all triggers of a dc
+```
+oc set triggers dc/nginx --remove-all=true
+```
