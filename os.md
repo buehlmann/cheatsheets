@@ -160,3 +160,29 @@ Delete all triggers of a dc
 ```
 oc set triggers dc/nginx --remove-all=true
 ```
+
+Start job and wait for completion
+```
+oc run say-hello --image=busybox --replicas=1  --restart=OnFailure --command -- /bin/sh -c "date; echo Hello from the Kubernetes cluster; sleep 10"
+oc wait --for=condition=complete job/say-hello --timeout=60s
+```
+
+Anti affinity rule. The entries of matchExpressions are anded
+```
+template:
+  pod:
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: my-first-label
+              operator: In
+              values:
+              - foo
+            - key: my-second-label
+              operator: In
+              values:
+              - bar
+          topologyKey: "kubernetes.io/hostname"
+```
