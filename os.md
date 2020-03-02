@@ -156,6 +156,11 @@ wait_for_kafka () {
 wait_for_kafka "kafka" "kafka-dev-1" 180
 ```
 
+Kill specific container in pod
+```
+oc exec kafka-entity-operator-8577f8b6b7-df2gs -c user-operator -- /bin/bash -c "kill 1"
+```
+
 Delete all triggers of a dc
 ```
 oc set triggers dc/nginx --remove-all=true
