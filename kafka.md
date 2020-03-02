@@ -2,7 +2,7 @@
 
 Producers
 ```
-./kafka-producer-perf-test.sh --topic prefix-hello1 --producer-props bootstrap.servers=localhost:9092 --throughput 1 --record-size 1024 --print-metrics
+./kafka-producer-perf-test.sh --topic prefix-hello1 --producer-props bootstrap.servers=localhost:9092 --throughput 1 --print-metrics --num-records 1000 --record-size 1024
 ```
 
 Consumers
