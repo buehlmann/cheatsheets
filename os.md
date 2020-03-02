@@ -86,6 +86,15 @@ docker exec -it origin /bin/bash
 oc --config=/var/lib/origin/openshift.local.config/master/admin.kubeconfig adm policy --as system:admin add-cluster-role-to-user cluster-admin admin
 ```
 
+Change dimensions of minishift vm (kvm):
+```
+virsh setmaxmem <vm-name> 12G --config
+virsh setmem <vm-name> 12G --config
+virsh edit <vm-name>  change <vcpu placement='static'>4</vcpu>
+minishift --memory 12GB --cpus 4 start
+```
+
+
 ## Snippets
 
 Binary S2I
