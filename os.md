@@ -64,6 +64,11 @@ Get token of ServiceAccount
 oc sa get-token <sa-name>
 ```
 
+Login under a ServiceAccount
+```
+oc login --token $(oc sa get-token deployer)
+```
+
 ## Minishift
 
 Enable RedHat registry login (minishift vm must be recreated):
