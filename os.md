@@ -59,6 +59,11 @@ Link secret to to ServiceAccount
 oc secrets link deployer secret-name --for=pull
 ```
 
+Get token of ServiceAccount
+```
+oc sa get-token <sa-name>
+```
+
 ## Minishift
 
 Enable RedHat registry login (minishift vm must be recreated):
