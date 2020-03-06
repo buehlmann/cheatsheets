@@ -210,3 +210,8 @@ template:
               - bar
           topologyKey: "kubernetes.io/hostname"
 ```
+
+Read multiple attributes
+```
+oc get crd -o jsonpath='{range .items[*]}{.metadata.name}{": "}{.apiVersion}{"\n"}{end}' 
+```
