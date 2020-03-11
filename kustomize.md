@@ -2,8 +2,6 @@
 
 #### Referencing `vars` in CustomResources 
 
-Processing done by varReference transformer.
-
 deploymentconfigs.yaml
 ```
 apiVersion: v1
