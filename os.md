@@ -215,3 +215,8 @@ Read multiple attributes
 ```
 oc get crd -o jsonpath='{range .items[*]}{.metadata.name}{": "}{.apiVersion}{"\n"}{end}' 
 ```
+
+Dump transformers configuration of kustomize
+```
+kustomize config save -d ./tmp
+```
