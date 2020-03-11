@@ -1,5 +1,32 @@
 # kustomize
 
+#### Applying labels in CustomResources
+
+openshift-config.yaml
+```
+# Used to enable commonLabelTransformer for specific path in crd
+commonLabels:
+- kind: DeploymentConfig
+  path: spec/template/metadata/labels
+  # creates path if not present
+  create: true
+```
+
+kustomization.yaml
+```
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app.kubernetes.io/managed-by: cicd
+
+configurations:
+- kustomizeconfig/openshift-config.yaml
+
+resources:
+- deploymentconfigs.yaml
+```
+
 #### Referencing `vars` in CustomResources 
 
 deploymentconfigs.yaml
