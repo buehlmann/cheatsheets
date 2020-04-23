@@ -117,10 +117,15 @@ oc expose svc/myproject
 oc get route myproject
 ```
 
-Create Template from 
+Create Template
 
 ```
 oc export svc,dc,is --selector app=cp-schema-registry --as-template=schema-registry
+```
+
+Export default project template
+```
+oc adm create-bootstrap-project-template -oyaml > ose-default-template.yaml
 ```
 
 Single file Mount
