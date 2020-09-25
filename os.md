@@ -144,6 +144,33 @@ volumes:
 *Not working with Secrets!*
 
 
+Defining ServiceAccount to use in CronJob
+```
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: data-fetch
+spec:
+  jobTemplate:         
+    spec:
+      template:
+        metadata:
+          labels:
+            parent: fetch-parent
+        spec:
+          serviceAccountName: visualizer
+          automountServiceAccountToken: true
+          containers:
+          - name: fetch
+            image: registry.access.redhat.com/openshift3/ose-cli:v3.11
+            command: ["/bin/sh"]
+            args: ["-c", "oc get --export --all-namespaces pod -o json > /ocp-data/pods.json"]
+            volumeMounts:
+            - mountPath: /ocp-data
+              name: ocp-data
+```
+
+
 Process template locally with multiple param files
 ```
 oc process --local -f wekan.yaml --ignore-unknown-parameters -o yaml --param-file wekan-test-precedence.env --param-file wekan-test.env
