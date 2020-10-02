@@ -170,6 +170,10 @@ spec:
               name: ocp-data
 ```
 
+Manually execute a CJ
+```
+oc create job --from cronjob/data-fetch data-fetch-manual-1
+```
 
 Process template locally with multiple param files
 ```
