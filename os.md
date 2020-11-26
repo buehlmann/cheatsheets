@@ -117,6 +117,12 @@ oc expose svc/myproject
 oc get route myproject
 ```
 
+```
+oc new-build --name=test-app --strategy=source --binary --image-stream=java:11
+oc start-build test-app --from-file=build/libs/app.jar --follow
+oc new-app test-app:latest
+```
+
 Create Template
 
 ```
