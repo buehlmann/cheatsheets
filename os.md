@@ -77,11 +77,28 @@ oc login --token $(oc sa get-token deployer)
 sudo apt install dnsmasq
 ```
 
+Disable listener of resolved in `/etc/systemd/resolved.conf`:
+
+```
+[Resolve]
+DNSStubListener=no
+```
+
+Or disable resolved completly:
+```
+sudo systemctl disable systemd-resolved
+```
+
 Configure `NetworkManager` to use dnsmasq in `/etc/NetworkManager/NetworkManager.conf`
 
 ```
 [main]
 dns=dnsmasq
+```
+
+Excluding interface `virbr1` which is managed by `libvirt` and uses its own dnsmasq on port 53 in `/etc/dnsmasq.d/custom-exclude-interfaces`:
+```
+except-interface=virbr1
 ```
 
 Add custom dnsmasq config file `/etc/NetworkManager/dnsmasq.d/custom-crc.conf`
