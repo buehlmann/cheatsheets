@@ -77,21 +77,19 @@ oc login --token $(oc sa get-token deployer)
 sudo apt install dnsmasq
 ```
 
-Disable listener of resolved in `/etc/systemd/resolved.conf`:
-
-```
-[Resolve]
-DNSStubListener=no
-```
-
-Disable `resolved` completly:
+Disable `resolved`:
 ```
 sudo systemctl stop systemd-resolved
 sudo systemctl disable systemd-resolved
 ```
 
-Configure `NetworkManager` to use dnsmasq in `/etc/NetworkManager/NetworkManager.conf`
+Alternatively you can just to disable the listener in `/etc/systemd/resolved.conf`:
+```
+[Resolve]
+DNSStubListener=no
+```
 
+Configure `NetworkManager` to use dnsmasq in `/etc/NetworkManager/NetworkManager.conf`
 ```
 [main]
 dns=dnsmasq
@@ -103,10 +101,9 @@ except-interface=virbr1
 ```
 
 Add custom dnsmasq config file `/etc/NetworkManager/dnsmasq.d/custom-crc.conf`
-
 ```
-server=/crc.testing/192.168.130.11
-server=/apps-crc.testing/192.168.130.11
+server=/.crc.testing/192.168.130.11
+server=/.apps-crc.testing/192.168.130.11
 ```
 
 Remove symlinkto resolv.conf and restart NetworkManager to rewrite new file new:
@@ -119,6 +116,12 @@ Restart `dnsmasq` and ensure that its listening on all interfaces:
 ```
 sudo systemctl restart dnsmasq
 sudo lsof -i -P -n | grep LISTEN
+```
+
+Disable start check for resolved and start crc
+```
+crc config set skip-check-systemd-resolved-running true
+crc start
 ```
 
 ## Minishift
