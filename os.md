@@ -84,8 +84,9 @@ Disable listener of resolved in `/etc/systemd/resolved.conf`:
 DNSStubListener=no
 ```
 
-Or disable resolved completly:
+Disable `resolved` completly:
 ```
+sudo systemctl stop systemd-resolved
 sudo systemctl disable systemd-resolved
 ```
 
@@ -106,6 +107,18 @@ Add custom dnsmasq config file `/etc/NetworkManager/dnsmasq.d/custom-crc.conf`
 ```
 server=/crc.testing/192.168.130.11
 server=/apps-crc.testing/192.168.130.11
+```
+
+Remove symlinkto resolv.conf and restart NetworkManager to rewrite new file new:
+```
+sudo rm /etc/resolv.conf
+sudo systemctl restart NetworkManager
+```
+
+Restart `dnsmasq` and ensure that its listening on all interfaces:
+```
+sudo systemctl restart dnsmasq
+sudo lsof -i -P -n | grep LISTEN
 ```
 
 ## Minishift
