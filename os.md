@@ -69,6 +69,28 @@ Login under a ServiceAccount
 oc login --token $(oc sa get-token deployer)
 ```
 
+## Code ready containers
+
+### Install & enable dnsmasq
+
+```
+sudo apt install dnsmasq
+```
+
+Configure `NetworkManager` to use dnsmasq in `/etc/NetworkManager/NetworkManager.conf`
+
+```
+[main]
+dns=dnsmasq
+```
+
+Add custom dnsmasq config file `/etc/NetworkManager/dnsmasq.d/custom-crc.conf`
+
+```
+server=/crc.testing/192.168.130.11
+server=/apps-crc.testing/192.168.130.11
+```
+
 ## Minishift
 
 Enable RedHat registry login (minishift vm must be recreated):
