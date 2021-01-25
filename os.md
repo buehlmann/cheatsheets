@@ -121,6 +121,7 @@ sudo lsof -i -P -n | grep LISTEN
 Disable start check for resolved and start crc
 ```
 crc config set skip-check-systemd-resolved-running true
+crc config set skip-check-network-manager-dispatcher-file true
 crc start
 ```
 
