@@ -125,16 +125,24 @@ crc config set skip-check-network-manager-dispatcher-file true
 crc start
 ```
 
-### Import OpenShift CA to docker daemon to push image
+### Import OpenShift CA to docker config and push image
 
 ```
 oc extract secret/router-ca --keys=tls.crt -n openshift-ingress-operator --confirm
 sudo cp tls.crt /etc/docker/certs.d/default-route-openshift-image-registry.apps-crc.testing/
 sudo mkdir -p  /etc/docker/certs.d/default-route-openshift-image-registry.apps-crc.testing/
+sudo chmod a+r /etc/docker/certs.d/default-route-openshift-image-registry.apps-crc.testing/tls.crt
 sudo systemctl restart docker
-docker login -u kubeadmin -p $(oc whoami -t) default-route-openshift-image-registry.apps-crc.testing
-docker push default-route-openshift-image-registry.apps-crc.testing/quarkus/namespace-config-operator-jvm:latest
 ```
+
+```
+oc new-project jenkins-operator
+podman login -u kubeadmin -p $(oc whoami -t) default-route-openshift-image-registry.apps-crc.testing
+podman build -f src/main/docker/Dockerfile.jvm -t namespace-config-operator-jvm .
+podman tag namespace-config-operator-jvm:latest default-route-openshift-image-registry.apps-crc.testing/jenkins-operator/namespace-config-operator-jvm:latest
+podman push default-route-openshift-image-registry.apps-crc.testing/jenkins-operator/namespace-config-operator-jvm:latest
+```
+
 
 ## Minishift
 
