@@ -125,6 +125,17 @@ crc config set skip-check-network-manager-dispatcher-file true
 crc start
 ```
 
+### Import OpenShift CA to docker daemon to push image
+
+```
+oc extract secret/router-ca --keys=tls.crt -n openshift-ingress-operator --confirm
+sudo cp tls.crt /etc/docker/certs.d/default-route-openshift-image-registry.apps-crc.testing/
+sudo mkdir -p  /etc/docker/certs.d/default-route-openshift-image-registry.apps-crc.testing/
+sudo systemctl restart docker
+docker login -u kubeadmin -p $(oc whoami -t) default-route-openshift-image-registry.apps-crc.testing
+docker push default-route-openshift-image-registry.apps-crc.testing/quarkus/namespace-config-operator-jvm:latest
+```
+
 ## Minishift
 
 Enable RedHat registry login (minishift vm must be recreated):
