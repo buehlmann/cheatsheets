@@ -1,0 +1,52 @@
+== Testify
+
+=== mock.AssertCalled() with deep equals
+
+.Logic
+[source,go]
+----
+type HttpClient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+
+type webappClient struct {
+	httpClient HttpClient
+	...
+}
+
+func (c *client) Logout(token string) {
+	request, _ := http.NewRequest(http.MethodPost, "https://foo.bar/logout", nil)
+	c.HTTPClient.Do(request)
+	...
+}
+
+----
+
+.Test
+[source,go]
+----
+func TestLogout(t *testing.T) {
+    // given
+    httpMock := &httpClientMock{}
+    httpMock.On("Do", mock.Anything).Return(&http.Response{}, nil)
+    webappClient := NewWebappClient()
+
+    // when
+    webappClient.Logout("testToken")
+
+    // then
+    request, _ := http.NewRequest(http.MethodPost, "https://foo.bar/logout", nil)
+    httpMock.AssertCalled(t, "Do", *request)
+}
+
+var _ HttpClient = (*httpClientMock)(nil)
+
+type httpClientMock struct {
+	mock.Mock
+}
+
+func (mock *httpClientMock) Do(req *http.Request) (*http.Response, error) {
+	mock.Called(*req) // invokes the mock with provided param. use * to see eventual diffs in log output of AssertCalled()
+	return &http.Response{}, nil
+}
+----
